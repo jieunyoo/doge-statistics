@@ -5,7 +5,8 @@ import datetime
 import altair as alt
 from PIL import Image
 
-image = Image.open('https://github.com/jieunyoo/doge-statistics/blob/main/dogecoinSmall.jpg')
+#image = Image.open('https://github.com/jieunyoo/doge-statistics/blob/main/dogecoinSmall.jpg')
+image = Image.open('dogecoinSmall.jpg')
 
 st.title('Doge Coin Stats!')
 st.text('Currency used: Indian INR')
