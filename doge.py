@@ -7,6 +7,7 @@ import base64
 import altair as alt
 
 st.title('Doge Coin Stats!')
+st.text('Currency used: Indian INR')
 
 st.text('Use your mouse to interact with this graph!')
 st.text('Data from Nov. 11 2017 to Jan. 28 2022')
