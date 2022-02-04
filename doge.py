@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import datetime
-import re
-import base64
 import altair as alt
 
 st.title('Doge Coin Stats!')
@@ -35,6 +33,33 @@ st.subheader('Open Price')
 chartOpenValue = alt.Chart(data).mark_circle().encode( x='Date:T', y = 'Open').interactive()
 st.altair_chart(chartOpenValue, use_container_width=True)
 
+
+nearest = alt.selection(type='single', nearest=True, on='mouseover', fields=['Date'], empty='none')
+
+line = alt.Chart().mark_line(interpolate='basis').encode(
+    alt.X('Date:T', axis=alt.Axis(title='')),
+    alt.Y('Close:Q', axis=alt.Axis(title='',format='$f'))
+)
+
+selectors = alt.Chart().mark_point().encode(
+    x='Date:T',
+    opacity=alt.value(0),
+).add_selection(
+    nearest
+)
+points = line.mark_point().encode(
+    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+)
+text = line.mark_text(align='left', dx=5, dy=-5).encode(
+    text=alt.condition(nearest, 'Close:Q', alt.value(' '))
+)
+rules = alt.Chart().mark_rule(color='gray').encode(
+    x='Date:T',
+).transform_filter(
+    nearest
+)
+
 st.subheader('Close Price')
-chartCloseValue = alt.Chart(data).mark_circle().encode( x='Date:T', y = 'Close').interactive()
-st.altair_chart(chartCloseValue, use_container_width=True)
+
+stockChart = alt.layer(line, selectors, points, rules, text, data=DATA_URL, width=600, height=300,title='Stock Price').interactive()
+st.altair_chart(stockChart,use_container_width=True)
