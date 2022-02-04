@@ -3,9 +3,13 @@ import pandas as pd
 import numpy as np
 import datetime
 import altair as alt
+from PIL import Image
+
+image = Image.open('https://github.com/jieunyoo/doge-statistics/blob/main/dogecoinSmall.jpg')
 
 st.title('Doge Coin Stats!')
 st.text('Currency used: Indian INR')
+st.image(image)
 
 st.text('Use your mouse to interact with this graph!')
 st.text('Data from Nov. 11 2017 to Jan. 28 2022')
